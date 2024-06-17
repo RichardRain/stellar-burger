@@ -4,7 +4,7 @@ import { getIngredientsApi } from '@api';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const fetchIngredients = createAsyncThunk(
-  'orders/fetchIngredients',
+  'ingredients/fetch',
   async () => getIngredientsApi()
 );
 
@@ -16,22 +16,20 @@ export const filterIngredients = (
   return ingredients.filter((ingredient) => ingredient.type === type);
 };
 
-type TOrderState = {
-  orders: TOrder[] | null;
+type TIngredientsState = {
   ingredients: TIngredient[] | null;
   isLoading: boolean;
   error: string | null;
 };
 
-const initialState: TOrderState = {
-  orders: [],
+const initialState: TIngredientsState = {
   ingredients: [],
   isLoading: false,
   error: null
 };
 
-const ordersSlice = createSlice({
-  name: 'orders',
+const ingredientsSlice = createSlice({
+  name: 'ingredients',
   initialState,
   reducers: {},
   selectors: {
@@ -55,5 +53,5 @@ const ordersSlice = createSlice({
   }
 });
 
-export const ordersReducer = ordersSlice.reducer;
-export const { getIngredients, getLoading } = ordersSlice.selectors;
+export const ingredientsReducer = ingredientsSlice.reducer;
+export const { getIngredients, getLoading } = ingredientsSlice.selectors;
