@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { TIngredient, TOrder, TTabMode } from '../../../utils/types';
+import { TIngredient, TTabMode } from '@utils-types';
 import { getIngredientsApi } from '@api';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
@@ -34,7 +34,7 @@ const ingredientsSlice = createSlice({
   reducers: {},
   selectors: {
     getIngredients: (state) => state.ingredients,
-    getLoading: (state) => state.isLoading
+    getIngredientsLoading: (state) => state.isLoading
   },
   extraReducers: (builder) => {
     builder
@@ -54,4 +54,5 @@ const ingredientsSlice = createSlice({
 });
 
 export const ingredientsReducer = ingredientsSlice.reducer;
-export const { getIngredients, getLoading } = ingredientsSlice.selectors;
+export const { getIngredients, getIngredientsLoading } =
+  ingredientsSlice.selectors;

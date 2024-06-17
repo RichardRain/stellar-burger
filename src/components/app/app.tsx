@@ -22,7 +22,7 @@ import {
 } from '@components';
 import { useEffect } from 'react';
 import { useDispatch } from '../../services/store';
-import { fetchIngredients } from '@slices';
+import { fetchIngredients, fetchFeed } from '@slices';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -34,6 +34,7 @@ const App = () => {
   };
   useEffect(() => {
     dispatch(fetchIngredients());
+    dispatch(fetchFeed());
   }, []);
   return (
     <div className={styles.app}>
@@ -86,6 +87,16 @@ const App = () => {
           element={
             <ProtectedRoute>
               <ProfileOrders />
+            </ProtectedRoute>
+          }
+        />
+        <Route path='/feed/:number' element={<OrderInfo />} />
+        <Route path='/ingredients/:id' element={<IngredientDetails />} />
+        <Route
+          path='/profile/orders/:number'
+          element={
+            <ProtectedRoute>
+              <OrderInfo />
             </ProtectedRoute>
           }
         />
