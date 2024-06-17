@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { TIngredient, TOrder, TTabMode } from '../utils/types';
+import { TIngredient, TOrder, TTabMode } from '../../../utils/types';
 import { getIngredientsApi } from '@api';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
@@ -55,5 +55,5 @@ const ordersSlice = createSlice({
   }
 });
 
-export const reducer = ordersSlice.reducer;
+export const ordersReducer = ordersSlice.reducer;
 export const { getIngredients, getLoading } = ordersSlice.selectors;

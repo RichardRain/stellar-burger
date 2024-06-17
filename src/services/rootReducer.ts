@@ -1,5 +1,4 @@
-import { reducer as userReducer } from '../slices/userSlice';
-import { reducer as ordersReducer } from '../slices/ordersSlice';
+import { userReducer, ordersReducer } from '@slices';
 import { combineReducers } from '@reduxjs/toolkit';
 
 export const rootReducer = combineReducers({

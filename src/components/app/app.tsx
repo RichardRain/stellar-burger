@@ -22,7 +22,7 @@ import {
 } from '@components';
 import { useEffect } from 'react';
 import { useDispatch } from '../../services/store';
-import { fetchIngredients } from '../../slices/ordersSlice';
+import { fetchIngredients } from '@slices';
 
 const App = () => {
   const dispatch = useDispatch();

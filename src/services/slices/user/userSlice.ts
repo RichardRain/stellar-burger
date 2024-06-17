@@ -15,4 +15,4 @@ const userSlice = createSlice({
   reducers: {}
 });
 
-export const reducer = userSlice.reducer;
+export const userReducer = userSlice.reducer;
