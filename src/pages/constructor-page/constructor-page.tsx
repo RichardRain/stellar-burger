@@ -6,10 +6,13 @@ import { BurgerIngredients } from '../../components';
 import { BurgerConstructor } from '../../components';
 import { Preloader } from '../../components/ui';
 import { FC } from 'react';
+import { useEffect } from 'react';
+import { getIngredients, getLoading } from '../../slices/ordersSlice';
+import { TIngredient } from '@utils-types';
 
 export const ConstructorPage: FC = () => {
   /** TODO: взять переменную из стора */
-  const isIngredientsLoading = false;
+  const isIngredientsLoading = useSelector(getLoading);
 
   return (
     <>
