@@ -16,7 +16,7 @@ type TOrderState = {
   orderRequest: boolean;
   orderName: string;
   orderModalData: TOrder | null;
-  error: string | null;
+  orderError: string | null;
 };
 
 type TMoveIngredientPayload = {
@@ -32,7 +32,7 @@ const initialState: TOrderState = {
   orderRequest: false,
   orderModalData: null,
   orderName: '',
-  error: null
+  orderError: null
 };
 
 const orderSlice = createSlice({
@@ -93,7 +93,7 @@ const orderSlice = createSlice({
       state.orderRequest = false;
       state.orderModalData = null;
       state.orderName = '';
-      state.error = null;
+      state.orderError = null;
     }
   },
   selectors: {
@@ -105,11 +105,11 @@ const orderSlice = createSlice({
     builder
       .addCase(orderBurger.pending, (state) => {
         state.orderRequest = true;
-        state.error = null;
+        state.orderError = null;
       })
       .addCase(orderBurger.rejected, (state, action) => {
         state.orderRequest = false;
-        state.error = action.error.message ?? null;
+        state.orderError = action.error.message ?? null;
       })
       .addCase(orderBurger.fulfilled, (state, action) => {
         state.orderRequest = false;

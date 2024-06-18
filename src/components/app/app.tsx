@@ -22,7 +22,7 @@ import {
 } from '@components';
 import { useEffect } from 'react';
 import { useDispatch } from '../../services/store';
-import { fetchIngredients, fetchFeed } from '@slices';
+import { fetchIngredients, fetchFeed, getUser } from '@slices';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -35,6 +35,7 @@ const App = () => {
   useEffect(() => {
     dispatch(fetchIngredients());
     dispatch(fetchFeed());
+    dispatch(getUser());
   }, []);
   return (
     <div className={styles.app}>
@@ -45,7 +46,7 @@ const App = () => {
         <Route
           path='/login'
           element={
-            <ProtectedRoute>
+            <ProtectedRoute onlyUnAuth>
               <Login />
             </ProtectedRoute>
           }
@@ -61,7 +62,7 @@ const App = () => {
         <Route
           path='/forgot-password'
           element={
-            <ProtectedRoute>
+            <ProtectedRoute onlyUnAuth>
               <ForgotPassword />
             </ProtectedRoute>
           }
@@ -69,7 +70,7 @@ const App = () => {
         <Route
           path='/reset-password'
           element={
-            <ProtectedRoute>
+            <ProtectedRoute onlyUnAuth>
               <ResetPassword />
             </ProtectedRoute>
           }
