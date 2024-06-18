@@ -1,11 +1,10 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { TUser } from '@utils-types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {
   loginUserApi,
   TLoginData,
   registerUserApi,
-  TRegisterData,
   getUserApi,
   updateUserApi,
   logoutApi
@@ -24,20 +23,11 @@ export const loginUser = createAsyncThunk(
   }
 );
 
-export const registerUser = createAsyncThunk(
-  'user/register',
-  async (registerData: TRegisterData) => await registerUserApi(registerData)
-);
+export const registerUser = createAsyncThunk('user/register', registerUserApi);
 
-export const getUser = createAsyncThunk(
-  'user/get',
-  async () => await getUserApi()
-);
+export const getUser = createAsyncThunk('user/get', getUserApi);
 
-export const updateUserData = createAsyncThunk(
-  'user/update',
-  async (updateData: Partial<TRegisterData>) => await updateUserApi(updateData)
-);
+export const updateUserData = createAsyncThunk('user/update', updateUserApi);
 
 export const logoutUser = createAsyncThunk('user/logout', async () => {
   const data = await logoutApi();

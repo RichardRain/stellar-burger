@@ -3,17 +3,13 @@ import { TOrder } from '@utils-types';
 import { getFeedsApi, getOrdersApi, getOrderByNumberApi } from '@api';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-export const fetchFeed = createAsyncThunk('feed/fetch', async () =>
-  getFeedsApi()
-);
+export const fetchFeed = createAsyncThunk('feed/fetch', getFeedsApi);
 
-export const fetchUserOrders = createAsyncThunk('user/orders', async () =>
-  getOrdersApi()
-);
+export const fetchUserOrders = createAsyncThunk('user/orders', getOrdersApi);
 
 export const fetchOrderByNumber = createAsyncThunk(
   'feed/fetch/number',
-  async (number: number) => getOrderByNumberApi(number)
+  getOrderByNumberApi
 );
 
 type TFeedState = {

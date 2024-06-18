@@ -3,10 +3,7 @@ import { TConstructorIngredient, TIngredient, TOrder } from '@utils-types';
 import { orderBurgerApi } from '@api';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-export const orderBurger = createAsyncThunk(
-  'order/post',
-  async (data: string[]) => orderBurgerApi(data)
-);
+export const orderBurger = createAsyncThunk('order/post', orderBurgerApi);
 
 type TOrderState = {
   orderItems: {
