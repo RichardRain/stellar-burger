@@ -22,7 +22,7 @@ import {
 } from '@components';
 import { useEffect } from 'react';
 import { useDispatch } from '../../services/store';
-import { fetchIngredients, fetchFeed, getUser } from '@slices';
+import { fetchIngredients, getUser } from '@slices';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -34,7 +34,6 @@ const App = () => {
   };
   useEffect(() => {
     dispatch(fetchIngredients());
-    dispatch(fetchFeed());
     dispatch(getUser());
   }, []);
   return (
@@ -54,7 +53,7 @@ const App = () => {
         <Route
           path='/register'
           element={
-            <ProtectedRoute>
+            <ProtectedRoute onlyUnAuth>
               <Register />
             </ProtectedRoute>
           }
@@ -108,7 +107,7 @@ const App = () => {
           <Route
             path='/feed/:number'
             element={
-              <Modal title='Информация о товаре' onClose={goBack}>
+              <Modal title='Информация о заказе' onClose={goBack}>
                 <OrderInfo />
               </Modal>
             }
@@ -125,7 +124,7 @@ const App = () => {
             path='/profile/orders/:number'
             element={
               <ProtectedRoute>
-                <Modal title='Информация об ингредиенте' onClose={goBack}>
+                <Modal title='Информация о заказе' onClose={goBack}>
                   <OrderInfo />
                 </Modal>
               </ProtectedRoute>

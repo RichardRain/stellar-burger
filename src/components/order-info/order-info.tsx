@@ -1,16 +1,34 @@
-import { FC, useMemo } from 'react';
+import { FC, useMemo, useEffect } from 'react';
 import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
-import { TIngredient } from '@utils-types';
-import { useSelector } from '../../services/store';
-import { getFeed, getIngredients } from '@slices';
-import { useParams } from 'react-router-dom';
+import { TIngredient, TOrder } from '@utils-types';
+import { useDispatch, useSelector } from '../../services/store';
+import {
+  getFeed,
+  getIngredients,
+  fetchOrderByNumber,
+  getCurrentOrders
+} from '@slices';
+import { useLocation, useParams } from 'react-router-dom';
 
 export const OrderInfo: FC = () => {
   const { number } = useParams();
-  const orders = useSelector(getFeed);
+  const location = useLocation();
+  const dispatch = useDispatch();
+  let orders: TOrder[] = [];
+  if (!location.state) {
+    orders = useSelector(getCurrentOrders) || [];
+  } else {
+    orders = useSelector(getFeed) || [];
+  }
   const orderData = orders?.find((item) => item.number === Number(number));
   const ingredients: TIngredient[] = useSelector(getIngredients) ?? [];
+
+  useEffect(() => {
+    if (!location.state) {
+      dispatch(fetchOrderByNumber(Number(number)));
+    }
+  }, []);
 
   const orderInfo = useMemo(() => {
     if (!orderData || !ingredients.length) return null;

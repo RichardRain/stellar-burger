@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { TUser } from '@utils-types';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import {

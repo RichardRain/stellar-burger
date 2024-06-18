@@ -1,14 +1,25 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { TOrder } from '@utils-types';
-import { getFeedsApi } from '@api';
+import { getFeedsApi, getOrdersApi, getOrderByNumberApi } from '@api';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const fetchFeed = createAsyncThunk('feed/fetch', async () =>
   getFeedsApi()
 );
 
+export const fetchUserOrders = createAsyncThunk('user/orders', async () =>
+  getOrdersApi()
+);
+
+export const fetchOrderByNumber = createAsyncThunk(
+  'feed/fetch/number',
+  async (number: number) => getOrderByNumberApi(number)
+);
+
 type TFeedState = {
   feed: TOrder[] | null;
+  userOrders: TOrder[] | null;
+  currentOrders: TOrder[] | null;
   total: number;
   totalToday: number;
   isLoading: boolean;
@@ -17,6 +28,8 @@ type TFeedState = {
 
 const initialState: TFeedState = {
   feed: [],
+  userOrders: [],
+  currentOrders: [],
   total: 0,
   totalToday: 0,
   isLoading: false,
@@ -32,7 +45,9 @@ const feedSlice = createSlice({
     getTotal: (state) => state.total,
     getTotalToday: (state) => state.totalToday,
     getFeedLoading: (state) => state.isLoading,
-    getError: (state) => state.error
+    getError: (state) => state.error,
+    getUserOrders: (state) => state.userOrders,
+    getCurrentOrders: (state) => state.currentOrders
   },
   extraReducers: (builder) => {
     builder
@@ -49,10 +64,41 @@ const feedSlice = createSlice({
         state.feed = action.payload.orders;
         state.total = action.payload.total;
         state.totalToday = action.payload.totalToday;
+      })
+      .addCase(fetchUserOrders.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(fetchUserOrders.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message ?? null;
+      })
+      .addCase(fetchUserOrders.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.userOrders = action.payload;
+      })
+      .addCase(fetchOrderByNumber.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(fetchOrderByNumber.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message ?? null;
+      })
+      .addCase(fetchOrderByNumber.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.currentOrders = action.payload.orders;
       });
   }
 });
 
 export const feedReducer = feedSlice.reducer;
-export const { getFeed, getTotal, getTotalToday, getFeedLoading, getError } =
-  feedSlice.selectors;
+export const {
+  getFeed,
+  getTotal,
+  getTotalToday,
+  getFeedLoading,
+  getError,
+  getUserOrders,
+  getCurrentOrders
+} = feedSlice.selectors;
