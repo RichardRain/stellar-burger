@@ -1,0 +1,83 @@
+{
+  "success": true,
+  "data": [
+    {
+      "_id": "0",
+      "name": "Булка 1",
+      "type": "bun",
+      "proteins": 80,
+      "fat": 24,
+      "carbohydrates": 53,
+      "calories": 420,
+      "price": 1255,
+      "image": "https://code.s3.yandex.net/react/code/bun-01.png",
+      "image_large": "https://code.s3.yandex.net/react/code/bun-01-large.png",
+      "image_mobile": "https://code.s3.yandex.net/react/code/bun-01-mobile.png"
+    },
+    {
+      "_id": "1",
+      "name": "Булка 2",
+      "type": "bun",
+      "proteins": 100,
+      "fat": 30,
+      "carbohydrates": 60,
+      "calories": 320,
+      "price": 850,
+      "image": "https://code.s3.yandex.net/react/code/bun-02.png",
+      "image_large": "https://code.s3.yandex.net/react/code/bun-02-large.png",
+      "image_mobile": "https://code.s3.yandex.net/react/code/bun-02-mobile.png"
+    },
+    {
+      "_id": "2",
+      "name": "Мясо 1",
+      "type": "main",
+      "proteins": 150,
+      "fat": 200,
+      "carbohydrates": 33,
+      "calories": 380,
+      "price": 1400,
+      "image": "https://code.s3.yandex.net/react/code/meat-01.png",
+      "image_large": "https://code.s3.yandex.net/react/code/meat-01-large.png",
+      "image_mobile": "https://code.s3.yandex.net/react/code/meat-01-mobile.png"
+    },
+    {
+      "_id": "3",
+      "name": "Мясо 2",
+      "type": "main",
+      "proteins": 130,
+      "fat": 180,
+      "carbohydrates": 40,
+      "calories": 400,
+      "price": 1180,
+      "image": "https://code.s3.yandex.net/react/code/meat-02.png",
+      "image_large": "https://code.s3.yandex.net/react/code/meat-02-large.png",
+      "image_mobile": "https://code.s3.yandex.net/react/code/meat-02-mobile.png"
+    },
+    {
+      "_id": "4",
+      "name": "Соус 1",
+      "type": "sauce",
+      "proteins": 40,
+      "fat": 50,
+      "carbohydrates": 80,
+      "calories": 140,
+      "price": 400,
+      "image": "https://code.s3.yandex.net/react/code/sauce-01.png",
+      "image_large": "https://code.s3.yandex.net/react/code/sauce-01-large.png",
+      "image_mobile": "https://code.s3.yandex.net/react/code/sauce-01-mobile.png"
+    },
+    {
+      "_id": "5",
+      "name": "Соус 2",
+      "type": "sauce",
+      "proteins": 60,
+      "fat": 80,
+      "carbohydrates": 100,
+      "calories": 250,
+      "price": 680,
+      "image": "https://code.s3.yandex.net/react/code/sauce-02.png",
+      "image_large": "https://code.s3.yandex.net/react/code/sauce-02-large.png",
+      "image_mobile": "https://code.s3.yandex.net/react/code/sauce-02-mobile.png"
+    }
+  ]
+}
