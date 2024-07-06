@@ -16,7 +16,7 @@ export const filterIngredients = (
   return ingredients.filter((ingredient) => ingredient.type === type);
 };
 
-type TIngredientsState = {
+export type TIngredientsState = {
   ingredients: TIngredient[] | null;
   isLoading: boolean;
   error: string | null;

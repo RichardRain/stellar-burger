@@ -38,7 +38,7 @@ export const logoutUser = createAsyncThunk('user/logout', async () => {
   return data;
 });
 
-type TUserState = {
+export type TUserState = {
   user: TUser | null;
   isAuthChecked: boolean;
   isAuthenticated: boolean;

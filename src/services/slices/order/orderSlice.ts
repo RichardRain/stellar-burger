@@ -1,11 +1,12 @@
-import { PayloadAction, createSlice, nanoid } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { TConstructorIngredient, TIngredient, TOrder } from '@utils-types';
 import { orderBurgerApi } from '@api';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { v4 } from 'uuid';
 
 export const orderBurger = createAsyncThunk('order/post', orderBurgerApi);
 
-type TOrderState = {
+export type TOrderState = {
   orderItems: {
     bun: TConstructorIngredient | null;
     ingredients: TConstructorIngredient[];
@@ -45,7 +46,7 @@ const orderSlice = createSlice({
         }
       },
       prepare: (ingredient: TIngredient) => {
-        const id = nanoid();
+        const id = v4();
         const ingredientWithId: TConstructorIngredient = {
           ...ingredient,
           id
