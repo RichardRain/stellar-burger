@@ -2,28 +2,29 @@
 describe('Функционал ингредиентов', () => {
   beforeEach(() => {
     cy.intercept('GET', 'api/ingredients', {fixture: 'ingredients.json'});
-    cy.visit('http://localhost:4000/');
+    cy.visit('');
+    cy.get('[data-cy=constructor]').as('constructor');
   });
   it('Добавление булок', () => {
     // Находим ингредиент "Булка 1 в списке ингредиентов"
     cy.get(`[data-cy=ingredient${0}]`).contains('Булка 1').should('exist');
     // Находим конструктор бургеров и проверяем что он пустой
-    cy.get('[data-cy=constructor]').contains('Выберите булки').should('exist');
+    cy.get('@constructor').contains('Выберите булки').should('exist');
     // Находим кнопку "Добавить" у ингредиента "Булка 1" и нажимаем на нее
     cy.get(`[data-cy=ingredient${0}]`).contains('Добавить').click();
     // Проверяем что в конструкторе появилась булка "Булка 1" в обоих полях
-    cy.get('[data-cy=constructor]').contains('Булка 1 (верх)').should('exist');
-    cy.get('[data-cy=constructor]').contains('Булка 1 (низ)').should('exist');
+    cy.get('@constructor').contains('Булка 1 (верх)').should('exist');
+    cy.get('@constructor').contains('Булка 1 (низ)').should('exist');
   });
   it('Добавление ингредиентов и проверка счетчика', () => {
     // Аналогично добавляем два одинаковых ингредиента и проверяем изменился ли счетчик
     cy.get(`[data-cy=ingredient${2}]`).contains('Мясо 1').should('exist');
     cy.get(`[data-cy=ingredient${2}]`).contains('Добавить').click();
-    cy.get('[data-cy=constructor]').contains('Мясо 1').should('exist');
+    cy.get('@constructor').contains('Мясо 1').should('exist');
 
     cy.get(`[data-cy=ingredient${2}]`).contains('Мясо 1').should('exist');
     cy.get(`[data-cy=ingredient${2}]`).contains('Добавить').click();
-    cy.get('[data-cy=constructor]').contains('Мясо 1').should('exist');
+    cy.get('@constructor').contains('Мясо 1').should('exist');
 
     cy.get(`[data-cy=ingredient${2}]`).get('.counter').contains('2').should('exist');
   });
@@ -49,7 +50,7 @@ describe('Функционал ингредиентов', () => {
     // Добавляем ингредиент
     cy.get(`[data-cy=ingredient${2}]`).contains('Мясо 1').should('exist');
     cy.get(`[data-cy=ingredient${2}]`).contains('Добавить').click();
-    cy.get('[data-cy=constructor]').contains('Мясо 1').should('exist');
+    cy.get('@constructor').contains('Мясо 1').should('exist');
     // Кликаем по кнопке удаления ингредиента и убеждаемся, что он удалился
     cy.get(`[data-cy=constructor-item${0}]`).find('.constructor-element__action').click();
     cy.get(`[data-cy=constructor-item${0}]`).should('not.exist');
@@ -59,7 +60,7 @@ describe('Функционал ингредиентов', () => {
 describe('Функционал модальных окон', () => {
   beforeEach(() => {
     cy.intercept('GET', 'api/ingredients', {fixture: 'ingredients.json'});
-    cy.visit('http://localhost:4000/');
+    cy.visit('');
   });
   it('Открытие модального окна с информацией об ингредиенте и закрытие его кликом на "крестик"', () => {
     // Кликаем на ингредиент и убеждаемся, что открыто верное модальное окно
@@ -90,22 +91,27 @@ describe('Создание заказа', () => {
     // Моковые токены
     window.localStorage.setItem('refreshToken', JSON.stringify('refresh-test-token'));
     cy.setCookie('accessToken', 'access-test-token');
-    cy.visit('http://localhost:4000/');
+    cy.visit('');
+    cy.get('[data-cy=constructor]').as('constructor');
   });
+  afterEach(() => {
+    window.localStorage.clear();
+    cy.clearCookies();
+  })
   it('Сборка бургера', () => {
     // Добавление ингредиентов
     cy.get(`[data-cy=ingredient${0}]`).contains('Добавить').click();
     cy.get(`[data-cy=ingredient${2}]`).contains('Добавить').click();
     cy.get(`[data-cy=ingredient${4}]`).contains('Добавить').click();
     // Оформление заказа
-    cy.get('[data-cy=constructor]').contains('Оформить заказ').click();
+    cy.get('@constructor').contains('Оформить заказ').click();
     // Подтверждение создания заказа
     cy.get('[data-cy=modal]').contains('10000').should('exist');
     // Закрытие модального окна
     cy.get('[data-cy=close-modal]').click();
     cy.get('[data-cy=modal]').should('not.exist');
     // Проверка очистки конструктора
-    cy.get('[data-cy=constructor]').contains('Выберите булки').should('exist');
+    cy.get('@constructor').contains('Выберите булки').should('exist');
     cy.get(`[data-cy=constructor-item${0}]`).should('not.exist');
   });
 });
