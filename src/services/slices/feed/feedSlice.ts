@@ -12,7 +12,7 @@ export const fetchOrderByNumber = createAsyncThunk(
   getOrderByNumberApi
 );
 
-type TFeedState = {
+export type TFeedState = {
   feed: TOrder[] | null;
   userOrders: TOrder[] | null;
   currentOrders: TOrder[] | null;
